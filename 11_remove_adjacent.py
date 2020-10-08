@@ -9,8 +9,15 @@ Irá retornar: [1, 2, 3]
 """
 
 def remove_adjacent(nums):
-    # +++ SUA SOLUÇÃO +++
-    return
+    if len(nums) == 0:
+        return []
+
+    lst = [nums[0]]
+    for num1, num2 in list(zip(nums[:-1], nums[1:])):
+        if num1 != num2:
+            lst.append(num2)
+
+    return lst
 
 
 # --- Daqui para baixo são apenas códigos auxiliáries de teste. ---
