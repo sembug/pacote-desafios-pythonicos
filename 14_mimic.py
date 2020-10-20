@@ -46,8 +46,13 @@ import sys
 def mimic_dict(filename):
   """Retorna o dicionario imitador mapeando cada palavra para a lista de
   palavras subsequentes."""
-    # +++ SUA SOLUÇÃO +++
-  return
+  c = {}
+  words = filename.split(' ')
+  for index, word in enumerate(words):
+      if index + 1 < len(words):
+        c[word] = c.get(word, list())
+        c[word].append(words[index + 1])
+  return c
 
 
 def print_mimic(mimic_dict, word):
@@ -56,6 +61,31 @@ def print_mimic(mimic_dict, word):
   return
 
 
+
+
+def test(f, in_, expected):
+    """
+    Executa a função f com o parâmetro in_ e compara o resultado com expected.
+    :return: Exibe uma mensagem indicando se a função f está correta ou não.
+    """
+    out = f(*in_)
+
+    if out == expected:
+        sign = '✅'
+        info = ''
+    else:
+        sign = '❌'
+        info = f'e o correto é {expected!r}'
+
+    print(f'{sign} {f.__name__}{in_!r} retornou {out!r} {info}')
+
+
+if __name__ == '__main__':
+    # Testes que verificam o resultado do seu código em alguns cenários.
+    test(mimic_dict, ['A B C B A'], {'A': ['B'], 'B': ['C', 'A'], 'C': ['B'] })
+
+
+'''
 # Chama mimic_dict() e print_mimic()
 def main():
   if len(sys.argv) != 2:
@@ -68,3 +98,4 @@ def main():
 
 if __name__ == '__main__':
   main()
+'''
