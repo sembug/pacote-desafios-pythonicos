@@ -56,10 +56,45 @@ import sys
 
 # +++ SUA SOLUÇÃO +++
 # Defina as funções print_words(filename) e print_top(filename).
+def print_words(filename):
+    c = {}
+    for word in filename.split(' '):
+        key = word.lower()
+        c[key] = c.get(key, 0) + 1
+    return c
+
+def print_top(filename):
+    c = print_words(filename)
+    return sorted(c.items(), key=lambda k: k[1], reverse=True)
 
 
+def test(f, in_, expected):
+    """
+    Executa a função f com o parâmetro in_ e compara o resultado com expected.
+    :return: Exibe uma mensagem indicando se a função f está correta ou não.
+    """
+    out = f(*in_)
+
+    if out == expected:
+        sign = '✅'
+        info = ''
+    else:
+        sign = '❌'
+        info = f'e o correto é {expected!r}'
+
+    print(f'{sign} {f.__name__}{in_!r} retornou {out!r} {info}')
+
+
+if __name__ == '__main__':
+    # Testes que verificam o resultado do seu código em alguns cenários.
+    test(print_words, ['A a C c c B b b B'], {'a': 2, 'b': 4, 'c': 3 })
+    test(print_top, ['A a C c c B b b B'], [('b',4),('c', 3), ('a', 2 )])
+
+
+
+'''
 # A função abaixo chama print_words() ou print_top() de acordo com os
-# parêtros do programa.
+# paramêtros do programa.
 def main():
     if len(sys.argv) != 3:
         print('Utilização: ./13_wordcount.py {--count | --topcount} file')
@@ -78,3 +113,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''
